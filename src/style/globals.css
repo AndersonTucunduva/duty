@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gradient: linear-gradient(to top left,#2774ae,#002E5D,#002E5D);
+
+    --background: 219 41.6% 3.36%;
+    --foreground: 219 6.4% 97.1%;
+
+    --muted: 219 32% 12.6%;
+    --muted-foreground: 219 6.4% 54.2%;
+
+    --popover: 219 52.2% 5.46%;
+    --popover-foreground: 219 6.4% 97.1%;
+
+    --card: 219 52.2% 5.46%;
+    --card-foreground: 219 6.4% 97.1%;
+
+    --border: 219 32% 12.6%;
+    --input: 219 32% 12.6%;
+
+    --primary: 219 64% 42%;
+    --primary-foreground: 219 6.4% 97.1%;
+
+    --secondary: 219 32% 12.6%;
+    --secondary-foreground: 219 6.4% 97.1%;
+
+    --accent: 219 32% 12.6%;
+    --accent-foreground: 219 6.4% 97.1%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 219 6.4% 97.1%;
+
+    --ring: 219 64% 42%;
+  }
+
+  .dark {
+    --gradient: linear-gradient(to top left,#2774ae,#002E5D,#002E5D);
+
+    --background: 219 41.6% 3.36%;
+    --foreground: 219 6.4% 97.1%;
+
+    --muted: 219 32% 12.6%;
+    --muted-foreground: 219 6.4% 54.2%;
+
+    --popover: 219 52.2% 5.46%;
+    --popover-foreground: 219 6.4% 97.1%;
+
+    --card: 219 52.2% 5.46%;
+    --card-foreground: 219 6.4% 97.1%;
+
+    --border: 219 32% 12.6%;
+    --input: 219 32% 12.6%;
+
+    --primary: 219 64% 42%;
+    --primary-foreground: 219 6.4% 97.1%;
+
+    --secondary: 219 32% 12.6%;
+    --secondary-foreground: 219 6.4% 97.1%;
+
+    --accent: 219 32% 12.6%;
+    --accent-foreground: 219 6.4% 97.1%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 219 6.4% 97.1%;
+
+    --ring: 219 64% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.grid-cols-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-flow: column; /* Faz com que a grid preencha as colunas primeiro */
+}

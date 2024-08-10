@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Department {
+  id    Int    @id @default(autoincrement())
+  name  String
+  tasks Task[]
+
+  @@map("departments")
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  description String
+  status      String    @default("NOT_STARTED")
+  createdAt   DateTime  @default(now())
+  finishedAt  DateTime?
+
+  Department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId Int?
+}
