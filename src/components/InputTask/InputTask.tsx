@@ -26,15 +26,52 @@ interface FormValues {
 }
 
 export default function InputTask({ departments = [] }: InputTaskProps) {
-  const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       description: '',
       department: '',
     },
   })
 
-  const onSubmit = (data: FormValues) => {
-    console.log('Form Data:', data)
+  const onSubmit = async (data: FormValues) => {
+    if (!departmentValue) {
+      setError('department', {
+        type: 'manual',
+        message: 'Escolha um',
+      })
+    } else {
+      const response = await fetch('/api/tasks/createTask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          departmentId: Number(data.department),
+          description: data.description,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao criar a task')
+      }
+
+      console.log('Task criada com sucesso:')
+      reset()
+    }
+  }
+
+  const handleDepartmentChange = (value: string) => {
+    setValue('department', value)
+    clearErrors('department')
   }
 
   const departmentValue = watch('department')
@@ -43,14 +80,30 @@ export default function InputTask({ departments = [] }: InputTaskProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="w-full py-3">
       <div className="flex gap-3">
         <div className="w-[405px]">
+          {errors.description ? (
+            <p className="mb-1 text-sm text-red-300">
+              {errors.description.message}
+            </p>
+          ) : (
+            <p className="mb-1 text-sm font-semibold text-foreground">Tarefa</p>
+          )}
           <Input
             placeholder="Descrição da tarefa"
-            {...register('description')}
+            {...register('description', {
+              required: 'Descrição obrigatória',
+            })}
           />
         </div>
         <div>
+          {errors.department ? (
+            <p className="mb-1 text-sm text-red-300">
+              {errors.department.message}
+            </p>
+          ) : (
+            <p className="mb-1 text-sm text-foreground">Departamento</p>
+          )}
           <Select
-            onValueChange={(value) => setValue('department', value)}
+            onValueChange={handleDepartmentChange}
             value={departmentValue}
           >
             <SelectTrigger className="w-40">
@@ -68,7 +121,7 @@ export default function InputTask({ departments = [] }: InputTaskProps) {
             </SelectContent>
           </Select>
         </div>
-        <div>
+        <div className="mt-6">
           <Button type="submit" className="rounded">
             Enviar
           </Button>

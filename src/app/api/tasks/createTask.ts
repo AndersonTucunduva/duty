@@ -9,7 +9,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const { departmentId, description, status } = req.body
+      const { departmentId, description } = req.body
 
       // Verifica se o departamento existe
       const department = await prisma.department.findUnique({
@@ -24,7 +24,6 @@ export default async function handler(
       const newTask = await prisma.task.create({
         data: {
           description,
-          status: status || 'NOT_STARTED',
           Department: {
             connect: { id: Number(departmentId) },
           },

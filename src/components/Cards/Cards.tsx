@@ -14,14 +14,14 @@ export default function Cards({ description, createdAt }: TaskProps) {
   })
 
   return (
-    <div className="my-2 flex max-w-xl items-center justify-between gap-5 rounded-[10px] border bg-foreground p-3 shadow-lg">
+    <div className="my-1 flex max-w-xl items-center justify-between gap-5 rounded-[10px] border bg-foreground p-3 shadow-lg">
       <div>
         <h1 className="text-xl font-semibold text-background">{description}</h1>
-        <p className="mt-2 font-extralight text-background">
+        <p className="mt-1 font-extralight text-background">
           Lançado: {formattedDate}
         </p>
       </div>
-      <Button className="rounded">
+      <Button className="rounded" variant="default">
         <div className="text-foreground">
           <Play />
         </div>

@@ -27,7 +27,7 @@ export default async function DepartmentPage({
   if (!department) {
     return notFound()
   }
-  console.log(departments)
+
   return (
     <div className="min-h-screen bg-custom-gradient p-3">
       <div className="flex justify-center border-b-4 border-foreground py-2 shadow-lg">
