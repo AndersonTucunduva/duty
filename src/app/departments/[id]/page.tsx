@@ -33,12 +33,12 @@ export default async function DepartmentPage({
       <div className="flex justify-center border-b-4 border-foreground py-2 shadow-lg">
         <h1 className="text-3xl font-bold">Departamento: {department.name}</h1>
       </div>
-      <div className="mb-3 flex justify-start border-b-4 border-foreground py-2 shadow-lg">
+      <div className="mb-3 flex border-b-4 border-foreground py-2 shadow-lg">
         <InputTask departments={departments} />
       </div>
-      <div>
+      <div className="flex justify-center">
         {department.tasks.length > 0 ? (
-          <ul className="grid auto-rows-max grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="flex flex-col">
             {department.tasks.map((task) => (
               <li key={task.id}>
                 <Cards

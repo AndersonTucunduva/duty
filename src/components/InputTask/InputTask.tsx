@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '../ui/select'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 interface Department {
   id: number
@@ -26,6 +27,7 @@ interface FormValues {
 }
 
 export default function InputTask({ departments = [] }: InputTaskProps) {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -48,27 +50,32 @@ export default function InputTask({ departments = [] }: InputTaskProps) {
         type: 'manual',
         message: 'Escolha um',
       })
-    } else {
-      const response = await fetch('/api/tasks/createTask', {
+      return
+    }
+
+    try {
+      const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          departmentId: Number(data.department),
+          departmentId: Number(departmentValue),
           description: data.description,
         }),
       })
 
       if (!response.ok) {
-        throw new Error('Erro ao criar a task')
+        const errorData = await response.json()
+        console.error('Erro na resposta da API:', errorData)
+        throw new Error('Erro New Task')
       }
-
-      console.log('Task criada com sucesso:')
       reset()
+      router.refresh()
+    } catch (error) {
+      console.error('Erro ao submeter o formulário:')
     }
   }
-
   const handleDepartmentChange = (value: string) => {
     setValue('department', value)
     clearErrors('department')
@@ -78,8 +85,8 @@ export default function InputTask({ departments = [] }: InputTaskProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full py-3">
-      <div className="flex gap-3">
-        <div className="w-[405px]">
+      <div className="flex justify-center gap-3">
+        <div className="w-[640px]">
           {errors.description ? (
             <p className="mb-1 text-sm text-red-300">
               {errors.description.message}
