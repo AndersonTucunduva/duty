@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div className="bg-custom-gradient">
-      <p className="text-primary-foreground">oi</p>
+    <div className="bg-blue-950">
+      <div>Olaaaaa</div>
     </div>
   )
 }

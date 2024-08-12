@@ -89,11 +89,11 @@ export default function InputTask({
   const departmentValue = watch('department')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full py-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full py-1">
       <div className="flex justify-center gap-3">
         <div className="w-[640px]">
           {errors.description ? (
-            <p className="mb-1 text-sm text-red-300">
+            <p className="mb-1 text-sm text-red-200">
               {errors.description.message}
             </p>
           ) : (
@@ -108,7 +108,7 @@ export default function InputTask({
         </div>
         <div>
           {errors.department ? (
-            <p className="mb-1 text-sm text-red-300">
+            <p className="mb-1 text-sm text-red-200">
               {errors.department.message}
             </p>
           ) : (
@@ -134,7 +134,10 @@ export default function InputTask({
           </Select>
         </div>
         <div className="mt-6">
-          <Button type="submit" className="rounded">
+          <Button
+            type="submit"
+            className="rounded bg-muted hover:bg-muted-foreground"
+          >
             Enviar
           </Button>
         </div>

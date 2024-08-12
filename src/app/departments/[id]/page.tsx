@@ -11,15 +11,21 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
   const { department, departments, error, mutate } = useDepartmentData(id)
 
   if (error) return <div>Failed to load</div>
-  if (!department || !departments) return <div>Loading...</div>
+  if (!department || !departments) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-500"></div>
+      </div>
+    )
+  }
 
   if (!department) {
     return notFound()
   }
 
   return (
-    <div className="min-h-screen bg-custom-gradient p-3">
-      <div className="flex justify-center border-b-4 border-foreground py-2 shadow-lg">
+    <div className="min-h-screen bg-muted-foreground">
+      <div className="flex justify-center border-b-4 border-foreground bg-muted py-1 shadow-lg">
         <h1 className="text-3xl font-bold">Departamento: {department.name}</h1>
       </div>
       <div className="mb-3 flex border-b-4 border-foreground py-2 shadow-lg">
@@ -27,7 +33,7 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
       </div>
       <div className="flex justify-center">
         {department.tasks.length > 0 ? (
-          <ul className="flex flex-col">
+          <ul className="flex flex-col rounded-xl bg-muted p-6">
             {department.tasks.map((task: Task) => (
               <li
                 key={task.id}

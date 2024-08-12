@@ -56,7 +56,7 @@ export default function Cards({
           Lançado: {formattedDate}
         </p>
       </div>
-      <Button className="rounded" variant="default">
+      <Button className="rounded" variant="ghost">
         <div className="text-foreground">
           <Play onClick={() => completeTask(id)} />
         </div>
