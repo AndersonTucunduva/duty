@@ -19,6 +19,7 @@ interface Department {
 
 interface InputTaskProps {
   departments: Department[]
+  mutate: () => void
 }
 
 interface FormValues {
@@ -26,7 +27,10 @@ interface FormValues {
   department: string
 }
 
-export default function InputTask({ departments = [] }: InputTaskProps) {
+export default function InputTask({
+  departments = [],
+  mutate,
+}: InputTaskProps) {
   const router = useRouter()
   const {
     register,
@@ -72,6 +76,7 @@ export default function InputTask({ departments = [] }: InputTaskProps) {
       }
       reset()
       router.refresh()
+      mutate()
     } catch (error) {
       console.error('Erro ao submeter o formulário:')
     }

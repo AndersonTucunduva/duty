@@ -1,28 +1,14 @@
 'use client'
 
-import useSWR from 'swr'
 import Cards from '@/components/Cards/Cards'
 import InputTask from '@/components/InputTask/InputTask'
 import { Task } from '@prisma/client'
 import { notFound } from 'next/navigation'
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-// Simulação de dados de departamentos para o InputTask
-const departmentsFetcher = async () => {
-  const res = await fetch('/api/departments')
-  return res.json()
-}
+import { useDepartmentData } from '@/app/Hooks/useDepartmentData'
 
 export default function DepartmentPage({ params }: { params: { id: string } }) {
   const { id } = params
-  const {
-    data: department,
-    error,
-    mutate,
-  } = useSWR(`/api/departments/${id}`, fetcher, { refreshInterval: 10000 })
-
-  const { data: departments } = useSWR('/api/departments', departmentsFetcher)
+  const { department, departments, error, mutate } = useDepartmentData(id)
 
   if (error) return <div>Failed to load</div>
   if (!department || !departments) return <div>Loading...</div>
@@ -37,7 +23,7 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
         <h1 className="text-3xl font-bold">Departamento: {department.name}</h1>
       </div>
       <div className="mb-3 flex border-b-4 border-foreground py-2 shadow-lg">
-        <InputTask departments={departments} />
+        <InputTask departments={departments} mutate={mutate} />
       </div>
       <div className="flex justify-center">
         {department.tasks.length > 0 ? (
