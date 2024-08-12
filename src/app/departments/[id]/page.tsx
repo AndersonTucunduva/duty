@@ -1,33 +1,31 @@
+'use client'
+
+import useSWR from 'swr'
 import Cards from '@/components/Cards/Cards'
 import InputTask from '@/components/InputTask/InputTask'
-import { PrismaClient } from '@prisma/client'
+import { Task } from '@prisma/client'
 import { notFound } from 'next/navigation'
 
-const prisma = new PrismaClient()
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-export async function generateStaticParams() {
-  const departments = await prisma.department.findMany()
-  return departments.map((department) => ({ id: department.id.toString() }))
+// Simulação de dados de departamentos para o InputTask
+const departmentsFetcher = async () => {
+  const res = await fetch('/api/departments')
+  return res.json()
 }
 
-export default async function DepartmentPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default function DepartmentPage({ params }: { params: { id: string } }) {
   const { id } = params
+  const {
+    data: department,
+    error,
+    mutate,
+  } = useSWR(`/api/departments/${id}`, fetcher, { refreshInterval: 10000 })
 
-  // Filtro de tasks com status "NOT_STARTED"
-  const department = await prisma.department.findUnique({
-    where: { id: Number(id) },
-    include: {
-      tasks: {
-        where: { status: 'NOT_STARTED' }, // Filtro aplicado aqui
-      },
-    },
-  })
+  const { data: departments } = useSWR('/api/departments', departmentsFetcher)
 
-  const departments = await prisma.department.findMany()
+  if (error) return <div>Failed to load</div>
+  if (!department || !departments) return <div>Loading...</div>
 
   if (!department) {
     return notFound()
@@ -44,12 +42,16 @@ export default async function DepartmentPage({
       <div className="flex justify-center">
         {department.tasks.length > 0 ? (
           <ul className="flex flex-col">
-            {department.tasks.map((task) => (
-              <li key={task.id}>
+            {department.tasks.map((task: Task) => (
+              <li
+                key={task.id}
+                className="w-[380px] sm:w-[600px] md:w-[700px] lg:w-[900px]"
+              >
                 <Cards
                   id={task.id}
                   description={task.description}
                   createdAt={task.createdAt}
+                  mutate={mutate}
                 />
               </li>
             ))}

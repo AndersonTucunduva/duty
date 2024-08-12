@@ -13,7 +13,7 @@ export async function GET(
     where: { id: Number(id) },
     include: {
       tasks: {
-        where: { status: 'NOT_STARTED' }, // Filtra apenas tasks com status "NOT_STARTED"
+        where: { status: 'NOT_STARTED' },
       },
     },
   })
@@ -24,6 +24,5 @@ export async function GET(
       { status: 404 },
     )
   }
-
   return NextResponse.json(department)
 }

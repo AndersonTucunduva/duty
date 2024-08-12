@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
     const department = await prisma.department.findUnique({
       where: { id: Number(departmentId) },
     })
-    console.log('Department:', department, 'DATA:', req)
     if (!department) {
       return NextResponse.json(
         { message: 'Department not found' },
@@ -38,19 +37,16 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(request: Request) {
-  try {
-    const { id, status } = await request.json()
+  const { id, status, finishedAt } = await request.json()
 
-    const updatedTask = await prisma.task.update({
-      where: { id },
-      data: { status },
-    })
+  // finishedAt deve estar no formato ISO 8601, e o Prisma lida com isso automaticamente
+  const updatedTask = await prisma.task.update({
+    where: { id },
+    data: {
+      status,
+      finishedAt: new Date(finishedAt), // Converte a string ISO para um objeto Date
+    },
+  })
 
-    return NextResponse.json(updatedTask)
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Erro ao atualizar a task' },
-      { status: 500 },
-    )
-  }
+  return NextResponse.json(updatedTask)
 }
