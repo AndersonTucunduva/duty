@@ -11,7 +11,11 @@ export async function GET(
 
   const department = await prisma.department.findUnique({
     where: { id: Number(id) },
-    include: { tasks: true },
+    include: {
+      tasks: {
+        where: { status: 'NOT_STARTED' }, // Filtra apenas tasks com status "NOT_STARTED"
+      },
+    },
   })
 
   if (!department) {

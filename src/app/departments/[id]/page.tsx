@@ -17,9 +17,14 @@ export default async function DepartmentPage({
 }) {
   const { id } = params
 
+  // Filtro de tasks com status "NOT_STARTED"
   const department = await prisma.department.findUnique({
     where: { id: Number(id) },
-    include: { tasks: true },
+    include: {
+      tasks: {
+        where: { status: 'NOT_STARTED' }, // Filtro aplicado aqui
+      },
+    },
   })
 
   const departments = await prisma.department.findMany()
@@ -42,6 +47,7 @@ export default async function DepartmentPage({
             {department.tasks.map((task) => (
               <li key={task.id}>
                 <Cards
+                  id={task.id}
                   description={task.description}
                   createdAt={task.createdAt}
                 />

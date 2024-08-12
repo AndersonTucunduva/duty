@@ -36,3 +36,21 @@ export async function POST(req: NextRequest) {
     )
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const { id, status } = await request.json()
+
+    const updatedTask = await prisma.task.update({
+      where: { id },
+      data: { status },
+    })
+
+    return NextResponse.json(updatedTask)
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Erro ao atualizar a task' },
+      { status: 500 },
+    )
+  }
+}
