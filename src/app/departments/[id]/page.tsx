@@ -39,12 +39,7 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
                 key={task.id}
                 className="w-[380px] sm:w-[600px] md:w-[700px] lg:w-[900px]"
               >
-                <Cards
-                  id={task.id}
-                  description={task.description}
-                  createdAt={task.createdAt}
-                  mutate={mutate}
-                />
+                <Cards task={task} mutate={mutate} />
               </li>
             ))}
           </ul>

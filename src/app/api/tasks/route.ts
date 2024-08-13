@@ -36,17 +36,44 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PATCH(request: Request) {
-  const { id, status, finishedAt } = await request.json()
+export async function PATCH(req: NextRequest) {
+  try {
+    const { id, status, finishedAt, description } = await req.json()
 
-  // finishedAt deve estar no formato ISO 8601, e o Prisma lida com isso automaticamente
-  const updatedTask = await prisma.task.update({
-    where: { id },
-    data: {
-      status,
-      finishedAt: new Date(finishedAt), // Converte a string ISO para um objeto Date
-    },
-  })
+    // Atualiza a task com status e finishedAt
+    if (status && finishedAt) {
+      const updatedTask = await prisma.task.update({
+        where: { id },
+        data: {
+          status,
+          finishedAt: new Date(finishedAt),
+        },
+      })
 
-  return NextResponse.json(updatedTask)
+      return NextResponse.json(updatedTask)
+    }
+
+    // Atualiza apenas a descrição da task
+    if (description) {
+      const updatedTask = await prisma.task.update({
+        where: { id },
+        data: {
+          description,
+        },
+      })
+
+      return NextResponse.json(updatedTask)
+    }
+
+    return NextResponse.json(
+      { message: 'No valid fields provided for update' },
+      { status: 400 },
+    )
+  } catch (error) {
+    console.error('Erro ao atualizar a task:', error)
+    return NextResponse.json(
+      { message: 'Erro ao atualizar a task' },
+      { status: 500 },
+    )
+  }
 }

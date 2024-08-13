@@ -3,21 +3,21 @@
 import { Play } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
+import ModalTask from '../Modal/ModalTask'
 
-interface TaskProps {
+export interface Task {
   id: string
   description: string
   createdAt: Date
+}
+
+interface TaskProps {
+  task: Task
   mutate: () => void
 }
 
-export default function Cards({
-  id,
-  description,
-  createdAt,
-  mutate,
-}: TaskProps) {
-  const date = new Date(createdAt)
+export default function Cards({ task, mutate }: TaskProps) {
+  const date = new Date(task.createdAt)
   const formattedDate = date.toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',
@@ -49,18 +49,27 @@ export default function Cards({
   }
 
   return (
-    <div className="my-1 flex w-full items-center justify-between gap-5 rounded-[10px] border bg-foreground p-3 shadow-lg">
+    <div className="my-1 flex w-full items-center justify-between gap-5 rounded-[10px] border bg-foreground p-2 shadow-lg">
       <div>
-        <h1 className="text-xl font-semibold text-background">{description}</h1>
+        <h1 className="text-xl font-semibold text-background">
+          {task.description}
+        </h1>
         <p className="mt-1 font-extralight text-background">
           Lançado: {formattedDate}
         </p>
       </div>
-      <Button className="rounded" variant="ghost">
-        <div className="text-foreground">
-          <Play onClick={() => completeTask(id)} />
-        </div>
-      </Button>
+      <div className="flex items-center gap-2">
+        <ModalTask task={task} mutate={mutate} />
+        <Button
+          className="rounded"
+          variant="default"
+          onClick={() => completeTask(task.id)}
+        >
+          <div className="text-foreground">
+            <Play />
+          </div>
+        </Button>
+      </div>
     </div>
   )
 }
