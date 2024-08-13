@@ -33,7 +33,7 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
       </div>
       <div className="flex justify-center">
         {department.tasks.length > 0 ? (
-          <ul className="flex flex-col rounded-xl bg-muted p-6">
+          <ul className="flex flex-col rounded-xl bg-muted p-3">
             {department.tasks.map((task: Task) => (
               <li
                 key={task.id}

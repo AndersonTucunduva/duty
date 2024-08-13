@@ -134,10 +134,7 @@ export default function InputTask({
           </Select>
         </div>
         <div className="mt-6">
-          <Button
-            type="submit"
-            className="rounded bg-muted hover:bg-muted-foreground"
-          >
+          <Button type="submit" className="rounded bg-muted hover:bg-gray-600">
             Enviar
           </Button>
         </div>

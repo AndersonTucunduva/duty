@@ -61,8 +61,8 @@ export default function Cards({ task, mutate }: TaskProps) {
       <div className="flex items-center gap-2">
         <ModalTask task={task} mutate={mutate} />
         <Button
-          className="rounded"
-          variant="default"
+          className="rounded hover:bg-muted-foreground"
+          variant="outline"
           onClick={() => completeTask(task.id)}
         >
           <div className="text-foreground">

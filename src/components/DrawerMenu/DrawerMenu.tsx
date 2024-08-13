@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Sheet,
   SheetContent,
@@ -10,8 +12,30 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { LayoutGrid } from 'lucide-react'
+import { useEffect, useState } from 'react'
+
+interface DepProps {
+  id: number
+  name: string
+}
 
 export function DrawerMenu() {
+  const [departments, setDepartments] = useState<DepProps[]>([])
+
+  useEffect(() => {
+    async function fetchDepartments() {
+      const res = await fetch('/api/departments')
+      if (res.ok) {
+        const data = await res.json()
+        setDepartments(data)
+      } else {
+        console.error('Failed to fetch departments')
+      }
+    }
+
+    fetchDepartments()
+  }, [])
+
   return (
     <Sheet>
       <SheetTrigger asChild className="flex">
@@ -27,46 +51,16 @@ export function DrawerMenu() {
           <SheetTitle className="mt-8 text-2xl">Departamentos</SheetTitle>
         </SheetHeader>
         <nav className="mt-8 flex flex-col space-y-4">
-          <SheetClose asChild>
-            <Link
-              href="/departments/1"
-              className="text-foreground hover:text-muted-foreground"
-            >
-              Fritura
-            </Link>
-          </SheetClose>
-          <SheetClose asChild>
-            <Link
-              href="/departments/2"
-              className="text-foreground hover:text-muted-foreground"
-            >
-              Assado
-            </Link>
-          </SheetClose>
-          <SheetClose asChild>
-            <Link
-              href="/departments/3"
-              className="text-foreground hover:text-muted-foreground"
-            >
-              Bolo
-            </Link>
-          </SheetClose>
-          <SheetClose asChild>
-            <Link
-              href="/departments/4"
-              className="text-foreground hover:text-muted-foreground"
-            >
-              Administração
-            </Link>
-          </SheetClose>
-          <SheetClose asChild>
-            <Link
-              href="/departments/5"
-              className="text-foreground hover:text-muted-foreground"
-            >
-              Balcão
-            </Link>
-          </SheetClose>
+          {departments.map((department) => (
+            <SheetClose asChild key={department.id}>
+              <Link
+                href={`/departments/${department.id}`}
+                className="text-foreground hover:text-muted-foreground"
+              >
+                {department.name}
+              </Link>
+            </SheetClose>
+          ))}
         </nav>
       </SheetContent>
     </Sheet>

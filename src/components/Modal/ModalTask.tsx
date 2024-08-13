@@ -54,7 +54,7 @@ export default function ModalTask({ task, mutate }: TaskProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">
+        <Button variant="outline" className="hover:bg-muted-foreground">
           <Edit />
         </Button>
       </DialogTrigger>
@@ -75,8 +75,9 @@ export default function ModalTask({ task, mutate }: TaskProps) {
         </div>
         <DialogFooter>
           <Button
-            className="flex gap-2 rounded"
+            className="flex gap-2 rounded bg-muted-foreground hover:bg-gray-400"
             type="submit"
+            variant="outline"
             onClick={handleSave}
           >
             Salvar
