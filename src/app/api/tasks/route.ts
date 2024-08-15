@@ -5,7 +5,8 @@ const prisma = new PrismaClient()
 
 export async function POST(req: NextRequest) {
   try {
-    const { departmentId, description } = await req.json()
+    const { departmentId, description, requestedByDepartmentId } =
+      await req.json()
 
     const department = await prisma.department.findUnique({
       where: { id: Number(departmentId) },
@@ -20,9 +21,8 @@ export async function POST(req: NextRequest) {
     const newTask = await prisma.task.create({
       data: {
         description,
-        Department: {
-          connect: { id: Number(departmentId) },
-        },
+        departmentId: Number(departmentId),
+        requestedByDepartmentId: Number(requestedByDepartmentId),
       },
     })
 
@@ -40,7 +40,6 @@ export async function PATCH(req: NextRequest) {
   try {
     const { id, status, finishedAt, description } = await req.json()
 
-    // Atualiza a task com status e finishedAt
     if (status && finishedAt) {
       const updatedTask = await prisma.task.update({
         where: { id },
@@ -53,7 +52,6 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json(updatedTask)
     }
 
-    // Atualiza apenas a descrição da task
     if (description) {
       const updatedTask = await prisma.task.update({
         where: { id },
@@ -69,6 +67,35 @@ export async function PATCH(req: NextRequest) {
       { message: 'No valid fields provided for update' },
       { status: 400 },
     )
+  } catch (error) {
+    console.error('Erro ao atualizar a task:', error)
+    return NextResponse.json(
+      { message: 'Erro ao atualizar a task' },
+      { status: 500 },
+    )
+  }
+}
+
+// Nova função para atualizar o campo isRead
+export async function PUT(req: NextRequest) {
+  try {
+    const { taskId, isRead } = await req.json()
+
+    // Valida se o ID foi passado
+    if (!taskId) {
+      return NextResponse.json(
+        { message: 'Task ID is required' },
+        { status: 400 },
+      )
+    }
+
+    // Atualiza a task com base no ID
+    const updatedTask = await prisma.task.update({
+      where: { id: taskId },
+      data: { isRead: isRead ?? true },
+    })
+
+    return NextResponse.json(updatedTask, { status: 200 })
   } catch (error) {
     console.error('Erro ao atualizar a task:', error)
     return NextResponse.json(

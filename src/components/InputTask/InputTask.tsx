@@ -20,6 +20,7 @@ interface Department {
 interface InputTaskProps {
   departments: Department[]
   mutate: () => void
+  depId: string
 }
 
 interface FormValues {
@@ -30,6 +31,7 @@ interface FormValues {
 export default function InputTask({
   departments = [],
   mutate,
+  depId,
 }: InputTaskProps) {
   const router = useRouter()
   const {
@@ -66,6 +68,7 @@ export default function InputTask({
         body: JSON.stringify({
           departmentId: Number(departmentValue),
           description: data.description,
+          requestedByDepartmentId: depId,
         }),
       })
 
@@ -89,7 +92,10 @@ export default function InputTask({
   const departmentValue = watch('department')
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full py-1">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full px-1 py-1 lg:px-0"
+    >
       <div className="flex justify-center gap-3">
         <div className="w-[640px]">
           {errors.description ? (

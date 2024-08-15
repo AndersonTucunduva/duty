@@ -14,6 +14,9 @@ export async function GET(
     include: {
       tasks: {
         where: { status: 'NOT_STARTED' },
+        include: {
+          RequestedByDepartment: true, // Inclui o departamento que fez o pedido
+        },
       },
     },
   })

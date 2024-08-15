@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Department {
-  id    Int    @id @default(autoincrement())
-  name  String
-  tasks Task[]
+  id             Int    @id @default(autoincrement())
+  name           String
+  tasks          Task[] @relation("DepartmentTasks")
+  requestedTasks Task[] @relation("RequestedBy")
 
   @@map("departments")
 }
@@ -21,7 +22,13 @@ model Task {
   status      String    @default("NOT_STARTED")
   createdAt   DateTime  @default(now())
   finishedAt  DateTime?
+  isRead      Boolean   @default(false)
 
-  Department   Department? @relation(fields: [departmentId], references: [id])
+  Department   Department? @relation("DepartmentTasks", fields: [departmentId], references: [id])
   departmentId Int?
+
+  RequestedByDepartment   Department? @relation("RequestedBy", fields: [requestedByDepartmentId], references: [id])
+  requestedByDepartmentId Int?
+
+  @@map("tasks")
 }

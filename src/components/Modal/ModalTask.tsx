@@ -54,8 +54,13 @@ export default function ModalTask({ task, mutate }: TaskProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="hover:bg-muted-foreground">
-          <Edit />
+        <Button
+          variant="outline"
+          className="h-7 w-8 rounded hover:bg-muted-foreground md:h-10 md:w-10"
+        >
+          <div>
+            <Edit />
+          </div>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-80 bg-muted sm:max-w-[425px] md:max-w-2xl">

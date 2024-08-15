@@ -5,10 +5,17 @@ import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
 import ModalTask from '../Modal/ModalTask'
 
+interface DepProps {
+  id: number
+  name: string
+}
+
 export interface Task {
   id: string
   description: string
   createdAt: Date
+  RequestedByDepartment?: DepProps
+  isRead: boolean
 }
 
 interface TaskProps {
@@ -19,11 +26,12 @@ interface TaskProps {
 export default function Cards({ task, mutate }: TaskProps) {
   const date = new Date(task.createdAt)
   const formattedDate = date.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
     year: 'numeric',
-    month: 'long',
-    day: 'numeric',
   })
   const router = useRouter()
+  console.log('TASKS:', task)
 
   const completeTask = async (id: string) => {
     const response = await fetch('/api/tasks', {
@@ -58,17 +66,22 @@ export default function Cards({ task, mutate }: TaskProps) {
           Lançado: {formattedDate}
         </p>
       </div>
-      <div className="flex items-center gap-2">
-        <ModalTask task={task} mutate={mutate} />
-        <Button
-          className="rounded hover:bg-muted-foreground"
-          variant="outline"
-          onClick={() => completeTask(task.id)}
-        >
-          <div className="text-foreground">
-            <Play />
-          </div>
-        </Button>
+      <div className="flex flex-col justify-end gap-1">
+        <p className="text-muted">
+          <p>Pedido por: {task.RequestedByDepartment?.name || 'N/A'}</p>
+        </p>
+        <div className="flex items-end justify-end gap-2">
+          <ModalTask task={task} mutate={mutate} />
+          <Button
+            className="h-7 w-8 rounded hover:bg-muted-foreground md:h-10 md:w-10"
+            variant="outline"
+            onClick={() => completeTask(task.id)}
+          >
+            <div className="text-foreground">
+              <Play />
+            </div>
+          </Button>
+        </div>
       </div>
     </div>
   )
