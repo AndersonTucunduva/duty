@@ -31,7 +31,6 @@ export default function Cards({ task, mutate }: TaskProps) {
     year: 'numeric',
   })
   const router = useRouter()
-  console.log('TASKS:', task)
 
   const completeTask = async (id: string) => {
     const response = await fetch('/api/tasks', {

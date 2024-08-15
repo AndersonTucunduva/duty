@@ -46,7 +46,6 @@ export default function ModalTask({ task, mutate }: TaskProps) {
 
   const handleSave = async () => {
     await editTaskDescription(task.id, taskDescription)
-    console.log('MUTATE', mutate)
     mutate()
     setIsOpen(false)
   }

@@ -8,7 +8,6 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet'
-
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { LayoutGrid } from 'lucide-react'
@@ -61,6 +60,14 @@ export function DrawerMenu() {
               </Link>
             </SheetClose>
           ))}
+          <SheetClose asChild>
+            <Link
+              href="/reports"
+              className="mt-4 text-foreground hover:text-muted-foreground"
+            >
+              Relatório
+            </Link>
+          </SheetClose>
         </nav>
       </SheetContent>
     </Sheet>
