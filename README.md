@@ -17,7 +17,7 @@ Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a
 - **Adicionar Nova Tarefa**: Interface para adicionar uma nova tarefa, permitindo associá-la a um departamento específico.
   ![Nova Tarefa](./screenshots/pedido.png)
 
-- **Visualização de Tarefas**: Página onde são listadas todas as tarefas existentes, com opções de filtragem e ordenação.
+- **Visualização de Tarefas**: Página onde são listadas todas as tarefas daquele departamento.
   ![Tarefas](./screenshots/tarefas.png)
 
 - **Menu de Departamentos**: Menu dinâmico que lista todos os departamentos disponíveis no banco de dados, permitindo a navegação por categoria.
@@ -26,7 +26,10 @@ Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a
 - **Edição de Tarefa**: Interface para editar as informações de uma tarefa existente.
   ![Edição de tarefa](./screenshots/edição-tarefa.png)
 
-- **Notificações**: O sistema avisa quando há mudanças importantes, mesmo que você esteja usando outra aba no navegador.
+  - **Relatório de Tarefas Feitas**: Pagina de relatório trazendo todas as tarefas completadas na data selecionada.
+  ![Relatório](./screenshots/relatorio.png)
+
+- **Notificações**: O sistema avisa quando há novas tarefas quando você esta usando outra aba no navegador.
   ![Aviso](./screenshots/aviso-aba.png)
 
 ## Instalação e Configuração
@@ -37,7 +40,19 @@ Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a
    cd seu-repositorio
 
 2. Instale as dependências:
-  ````bash
+  ```bash
   npm install
   npx prisma migrate dev
   npm run dev
+
+3. Abra http://localhost:3000 no seu navegador para ver o projeto em ação.
+
+Estrutura do Projeto
+/src: Contém o código-fonte da aplicação.
+/prisma: Configurações e migrações do banco de dados Prisma.
+/screenshots: Imagens das principais telas do projeto, utilizadas neste README.
+Contribuições
+Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+Licença
+Este projeto está licenciado sob a MIT License.
