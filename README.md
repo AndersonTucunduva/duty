@@ -26,7 +26,7 @@ Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a
 - **Edição de Tarefa**: Interface para editar as informações de uma tarefa existente.
   ![Edição de tarefa](./screenshots/edição-tarefa.png)
 
-  - **Relatório de Tarefas Feitas**: Pagina de relatório trazendo todas as tarefas completadas na data selecionada.
+- **Relatório de Tarefas Feitas**: Pagina de relatório trazendo todas as tarefas completadas na data selecionada.
   ![Relatório](./screenshots/relatorio.png)
 
 - **Notificações**: O sistema avisa quando há novas tarefas quando você esta usando outra aba no navegador.
@@ -40,19 +40,19 @@ Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a
    cd seu-repositorio
 
 2. Instale as dependências:
-  ```bash
-  npm install
-  npx prisma migrate dev
-  npm run dev
+   ```bash
+   npm install
+   npx prisma migrate dev
+   npm run dev
 
 3. Abra http://localhost:3000 no seu navegador para ver o projeto em ação.
 
 Estrutura do Projeto
-/src: Contém o código-fonte da aplicação.
-/prisma: Configurações e migrações do banco de dados Prisma.
-/screenshots: Imagens das principais telas do projeto, utilizadas neste README.
+- /src: Contém o código-fonte da aplicação.
+- /prisma: Configurações e migrações do banco de dados Prisma.
+- /screenshots: Imagens das principais telas do projeto, utilizadas neste README.
 Contribuições
-Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+- Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões, sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
 Licença
-Este projeto está licenciado sob a MIT License.
+- Este projeto está licenciado sob a MIT License.
