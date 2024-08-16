@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ToDo com Departamentos
 
-## Getting Started
+Este projeto é uma aplicação de gerenciamento de tarefas (ToDo) com suporte a departamentos, desenvolvida utilizando Next.js, Prisma, Tailwind CSS e a biblioteca Shadcn. A aplicação permite criar, editar e visualizar tarefas, organizadas por departamentos.
 
-First, run the development server:
+## Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 14.2.5**: Framework React para construção de aplicações web.
+- **Prisma 5.18.0**: ORM utilizado para manipulação do banco de dados.
+- **Tailwind CSS 3.4.1**: Framework de CSS utilitário para estilização da interface.
+- **Shadcn**: Biblioteca de componentes para uma melhor experiência de usuário.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Tela Inicial**: Página principal do aplicativo, onde são listadas as tarefas mais recentes e as ações disponíveis.
+  ![Tela Inicial](./screenshots/home.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Adicionar Nova Tarefa**: Interface para adicionar uma nova tarefa, permitindo associá-la a um departamento específico.
+  ![Nova Tarefa](./screenshots/pedido.png)
 
-## Learn More
+- **Visualização de Tarefas**: Página onde são listadas todas as tarefas existentes, com opções de filtragem e ordenação.
+  ![Tarefas](./screenshots/tarefas.png)
 
-To learn more about Next.js, take a look at the following resources:
+- **Menu de Departamentos**: Menu dinâmico que lista todos os departamentos disponíveis no banco de dados, permitindo a navegação por categoria.
+  ![Departamentos](./screenshots/menu.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Edição de Tarefa**: Interface para editar as informações de uma tarefa existente.
+  ![Edição de tarefa](./screenshots/edição-tarefa.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Notificações**: O sistema avisa quando há mudanças importantes, mesmo que você esteja usando outra aba no navegador.
+  ![Aviso](./screenshots/aviso-aba.png)
 
-## Deploy on Vercel
+## Instalação e Configuração
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   cd seu-repositorio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Instale as dependências:
+  ````bash
+  npm install
+  npx prisma migrate dev
+  npm run dev
