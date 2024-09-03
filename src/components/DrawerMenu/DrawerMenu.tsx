@@ -1,5 +1,4 @@
-'use client'
-
+import { PrismaClient } from '@prisma/client'
 import {
   Sheet,
   SheetContent,
@@ -11,14 +10,24 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { LayoutGrid } from 'lucide-react'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
+/*
 interface DepProps {
   id: number
   name: string
 }
+*/
 
-export function DrawerMenu() {
+async function fetchDepartments() {
+  const prisma = new PrismaClient()
+  const departments = await prisma.department.findMany()
+  return departments
+}
+
+export default async function DrawerMenu() {
+  const departments = await fetchDepartments()
+  /*
   const [departments, setDepartments] = useState<DepProps[]>([])
 
   useEffect(() => {
@@ -34,6 +43,7 @@ export function DrawerMenu() {
 
     fetchDepartments()
   }, [])
+  */
 
   return (
     <Sheet>

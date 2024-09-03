@@ -12,8 +12,6 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
   const { department, departments, error, mutate, hasUnreadTask } =
     useDepartmentData(id)
 
-  // novo
-
   useEffect(() => {
     const markTasksAsRead = async () => {
       if (document.visibilityState === 'visible' && department?.tasks) {
@@ -28,7 +26,7 @@ export default function DepartmentPage({ params }: { params: { id: string } }) {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ taskId: task.id, isRead: true }), // Envia o ID da task e o valor de isRead
+              body: JSON.stringify({ taskId: task.id, isRead: true }),
             })
           }
 
