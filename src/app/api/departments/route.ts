@@ -9,7 +9,7 @@ export async function GET() {
       tasks: {
         where: { status: 'NOT_STARTED' },
         include: {
-          RequestedByDepartment: true,
+          RequestedByDepartment: true, // Inclui o departamento que fez o pedido
         },
       },
     },
@@ -21,9 +21,5 @@ export async function GET() {
       { status: 404 },
     )
   }
-
-  return NextResponse.json(departments, {
-    // Define o tempo de revalidação em segundos
-    revalidate: 60, // revalida a cada 60 segundos
-  })
+  return NextResponse.json(departments)
 }
